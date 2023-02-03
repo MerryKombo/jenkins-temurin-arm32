@@ -1,6 +1,6 @@
 pipeline {
   agent {
-    label 'riscv'
+    label 'arm32'
   }
   stages {
 
@@ -20,13 +20,13 @@ pipeline {
                 rm -f "/home/jenkins/OpenJDK20U-jdk_riscv64_linux_hotspot_*.tar.gz"
                 releaseName=$(gh release list | sed -n '1p' | sed 's/|/ /' | awk '{print $1}')
                 echo "Downloading for $releaseName"
-                gh release download $releaseName --pattern 'OpenJDK20U-jdk_riscv64_linux_hotspot_*.tar.gz' -D /home/jenkins
+                gh release download $releaseName --pattern 'OpenJDK20U-jdk_arm_linux_hotspot_*.tar.gz' -D /home/jenkins
                 cd /home/jenkins
-                mainDirName=`tar -tzf OpenJDK20U-jdk_riscv64_linux_hotspot_*.tar.gz | head -1 | cut -f1 -d"/"`
+                mainDirName=`tar -tzf OpenJDK20U-jdk_arm_linux_hotspot_*.tar.gz | head -1 | cut -f1 -d"/"`
                 echo "We found $mainDirName as the main dir in the archive"
                 rm -fr jdk-20* "$mainDirName" /home/jenkins/jdk20
-                tar -xvzf /home/jenkins/OpenJDK20U-jdk_riscv64_linux_hotspot_*.tar.gz
-                rm -f /home/jenkins/OpenJDK20U-jdk_riscv64_linux_hotspot_*.tar.gz
+                tar -xvzf /home/jenkins/OpenJDK20U-jdk_arm_linux_hotspot_*.tar.gz
+                rm -f /home/jenkins/OpenJDK20U-jdk_arm_linux_hotspot_*.tar.gz
                 ln -s "/home/jenkins/$mainDirName" /home/jenkins/jdk20
                 ls -artl "/home/jenkins/$mainDirName"
 '''
@@ -47,16 +47,16 @@ pipeline {
                 java --version
                 cd temurin19-binaries
                 echo "Removing previous binaries"
-                rm -f "/home/jenkins/OpenJDK19U-jdk_riscv64_linux_hotspot_*.tar.gz"
+                rm -f "/home/jenkins/OpenJDK19U-jdk_arm_linux_hotspot_*.tar.gz"
                 releaseName=$(gh release list | sed -n '1p' | sed 's/|/ /' | awk '{print $1}')
                 echo "Downloading for $releaseName"
-                gh release download $releaseName --pattern 'OpenJDK19U-jdk_riscv64_linux_hotspot_*.tar.gz' -D /home/jenkins
+                gh release download $releaseName --pattern 'OpenJDK19U-jdk_arm_linux_hotspot_*.tar.gz' -D /home/jenkins
                 cd /home/jenkins
-                mainDirName=`tar -tzf OpenJDK19U-jdk_riscv64_linux_hotspot_*.tar.gz | head -1 | cut -f1 -d"/"`
+                mainDirName=`tar -tzf OpenJDK19U-jdk_arm_linux_hotspot_*.tar.gz | head -1 | cut -f1 -d"/"`
                 echo "We found $mainDirName as the main dir in the archive"
                 rm -fr jdk-19* "$mainDirName" /home/jenkins/jdk19
-                tar -xvzf /home/jenkins/OpenJDK19U-jdk_riscv64_linux_hotspot_*.tar.gz
-                rm -f /home/jenkins/OpenJDK19U-jdk_riscv64_linux_hotspot_*.tar.gz
+                tar -xvzf /home/jenkins/OpenJDK19U-jdk_arm_linux_hotspot_*.tar.gz
+                rm -f /home/jenkins/OpenJDK19U-jdk_arm_linux_hotspot_*.tar.gz
                 ln -s "/home/jenkins/$mainDirName" /home/jenkins/jdk19
                 ls -artl "/home/jenkins/$mainDirName"
 '''
