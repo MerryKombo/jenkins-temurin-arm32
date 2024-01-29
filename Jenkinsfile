@@ -5,9 +5,6 @@ pipeline {
   stages {
 
     stage('Installs JDK20') {
-      tools {
-        jdk "jdk19"
-      }
       steps {
         withCredentials([string(credentialsId: 'GITHUB_CREDENTIALS_PSW', variable: 'GITHUB_CREDENTIALS_PSW')]) {
           sh '''echo $GITHUB_CREDENTIALS_PSW | gh auth login --with-token 
@@ -35,9 +32,6 @@ pipeline {
       }
     }
     stage('Installs JDK19') {
-      tools {
-        jdk "jdk20"
-      }
       steps {
         withCredentials([string(credentialsId: 'GITHUB_CREDENTIALS_PSW', variable: 'GITHUB_CREDENTIALS_PSW')]) {
           sh '''echo $GITHUB_CREDENTIALS_PSW | gh auth login --with-token
